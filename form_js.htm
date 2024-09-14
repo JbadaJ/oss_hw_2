@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보 폼</title>
+    <style>
+        .base_info_sec {
+            width: 60%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        input[type=text], input[type=password], input[type=tel], input[type=date] {
+            width: 60%;
+            padding: 12px 20px;
+            margin: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=radio], input[type=checkbox] {
+            width: 5%;
+            padding: 12px 20px;
+            margin: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=color] {
+            width: 50px;
+            height: 30px;
+            padding: 0;
+            margin: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea[name=address] {
+            width: 60%;
+            padding: 12px 20px;
+            margin: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 4px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .mx {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .mm {
+            display: flex;
+            margin-left: auto;
+            color: #db83a4;
+        }
+        .last_button {
+            display: flex;
+            justify-content: center;
+        }
+        .important::before, .mm::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #db83a4;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .email_group {
+            display: block; 
+            margin: 10px 0; 
+        }        
+        .button {
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            background-color: #db83a4;
+            margin-left: 10px;
+        }
+        .button_w {
+            padding: 10px 20px;
+            color: #db83a4;
+            cursor: pointer;
+            background-color: white;
+            border: 2px solid #db83a4;
+            box-shadow: none;
+            outline: none;
+        }
+        .button_w:focus,
+        .button_w:active {
+            box-shadow: none;
+            outline: none;
+            border-color: #db83a4;
+        }
+        .error {
+            color: red;
+            font-size: 0.875em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="base_info_sec">
+        <form id="userForm" action="#" method="post" onsubmit="return validateInput()">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <colgroup>
+                    <col width="25%">
+                    <col width="75%">
+                </colgroup>
+                <tbody>
+                    <div class="mx">
+                        <h3>기본정보</h3>
+                        <span class="mm">표시는 반드시 입력하셔야 하는 항목입니다.</span>    
+                    </div>
+                    
+                    <tr>
+                        <th><span class="important">아이디</span></th>
+                        <td>
+                            <input type="text" id="id" name="id" placeholder="6자 이상 입력"required>
+                            <span id="idError" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span class="important">비밀번호</span></th>
+                        <td>
+                            <input type="password" id="password" name="password" placeholder="8자 이상 입력" required>
+                            <span id="passwordError" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span class="important">이름</span></th>
+                        <td>
+                            <input type="text" name="userName" maxlength="30" placeholder="이름 입력"required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>이메일</span></th>
+                        <td>
+                            <div class="email_group">
+                                <input type="text" name="email" placeholder="이메일 입력" required>
+                                <select id="email" name="email" required>
+                                    <option value="self">직접입력</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="nate.com">nate.com</option>
+                                </select>
+                                <br>
+                                <input type="checkbox" name="event_check" value="mail_check" onclick="handleClick()"> 정보/이벤트 메일 수신에 동의합니다.
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>성별</span></th>
+                        <td>
+                            <input type="radio" name="gender" value="male" required onclick="choose()"> 남성
+                            <input type="radio" name="gender" value="female" required onclick="choose()"> 여성
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>취미</span></th>
+                        <td>
+                            <input type="checkbox" name="hobby" value="sports"> 스포츠
+                            <input type="checkbox" name="hobby" value="reading"> 독서
+                            <input type="checkbox" name="hobby" value="travel"> 여행
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>생년월일</span></th>
+                        <td>
+                            <input type="date" name="birthDate" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>주소</span></th>
+                        <td>
+                            <textarea name="address" rows="4" cols="50" placeholder="주소 입력" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>선호 색상</span></th>
+                        <td>
+                            <input type="color" name="favoriteColor" onchange="colorClick()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>전화번호</span></th>
+                        <td>
+                            <input type="tel" id="phone" name="phone" placeholder="전화번호 입력" required>
+                            <span id="phoneError" class="error"></span>
+                            <br>
+                            <input type="checkbox" name="event_check" value="phone_check" onclick="handleClick()"> 정보/이벤트 SMS 수신에 동의합니다.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="last_button">
+                <button class="button_w" type="button" onclick="showBack()">취소</button>
+                <button class="button" type="submit">회원가입</button>
+            </div>
+        </form>
+    </div>
+
+    
+    <script>
+        function showBack() {
+            alert("회원가입이 취소되었습니다");
+        }
+        function handleClick() {
+            alert("수정 되었습니다");
+        }
+        function colorClick(){
+            alert("색이 선택 되었습니다");
+        }
+        function choose(){
+            alert("선택 완료");
+        }
+        function validateInput() {
+            const id = document.getElementById('id');
+            const password = document.getElementById('password');
+            const idError = document.getElementById('idError');
+            const passwordError = document.getElementById('passwordError');
+            const phonenum = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            let isValid = true;
+
+            
+            if (id.value.length < 6) {
+                idError.textContent = '아이디는 최소 6자 이상이어야 합니다.';
+                isValid = false;
+            } else {
+                idError.textContent = '';
+            }
+
+            
+            if (password.value.length < 8) {
+                passwordError.textContent = '비밀번호는 최소 8자 이상이어야 합니다.';
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+            
+            const phonePattern = /^[0-9]+$/; 
+            if (phone.value.length < 9 || !phonePattern.test(phone.value)) {
+                phoneError.textContent = '핸드폰 번호는 9자 이상이어야 하며 숫자만 포함되어야 합니다.';
+                isValid = false;
+            } else {
+                phoneError.textContent = '';
+            }
+            
+            return isValid;
+        }
+    </script>
+</body>
+</html>
